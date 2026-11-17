@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'VesselPhysicsOptimizer-0.1.0.ckan'
+      - 'README.md'
+      - 'LICENSE'
   workflow_dispatch:
 
 permissions:
@@ -49,10 +53,10 @@ jobs:
           overwrite_files: true
           files: dist/VesselPhysicsOptimizer-0.1.0.zip
           body: |
-            First test release for KSP 1.12.5.3190.
+            First visualization milestone for KSP 1.12.5.3190.
             Purple marks connected multi-part groups.
             Green marks previously grouped parts that are now singletons.
             F9 toggles colors and F10 toggles diagnostics.
-            This build does not yet merge rigidbodies or optimize physics processing.
+            This build does not yet merge rigidbodies or optimize physics performance.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
