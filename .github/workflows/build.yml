@@ -37,19 +37,26 @@ jobs:
           cd dist
           zip -r ../VesselPhysicsOptimizer-0.1.0.zip .
 
-      - name: Upload installable ZIP
+      - name: Package CKAN metadata repository
+        run: zip -j VesselPhysicsOptimizer-CKAN-Metadata.zip VesselPhysicsOptimizer-0.1.0.ckan
+
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: VesselPhysicsOptimizer-KSP-1.12.5
-          path: VesselPhysicsOptimizer-0.1.0.zip
+          path: |
+            VesselPhysicsOptimizer-0.1.0.zip
+            VesselPhysicsOptimizer-CKAN-Metadata.zip
 
       - name: Publish CKAN-downloadable release
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v0.1.0
-          name: Vessel Physics Optimizer 0.1.0
+          tag_name: v0.1.1
+          name: Vessel Physics Optimizer 0.1.1
           target_commitish: ${{ github.sha }}
-          files: VesselPhysicsOptimizer-0.1.0.zip
+          files: |
+            VesselPhysicsOptimizer-0.1.0.zip
+            VesselPhysicsOptimizer-CKAN-Metadata.zip
           fail_on_unmatched_files: true
           make_latest: true
