@@ -1,0 +1,26 @@
+{
+  "spec_version": 1,
+  "identifier": "VesselPhysicsOptimizer",
+  "name": "Vessel Physics Optimizer",
+  "abstract": "Experimental connected-part optimizer; initial release provides connection-state visualization only.",
+  "author": "ItsaSecondChance",
+  "license": "MIT",
+  "version": "0.1.0",
+  "download": "https://github.com/ItsaSecondChance/VesselPhysicsOptimizer/releases/download/v0.1.0/VesselPhysicsOptimizer-0.1.0.zip",
+  "ksp_version_min": "1.12.5",
+  "ksp_version_max": "1.12.5",
+  "resources": {
+    "repository": "https://github.com/ItsaSecondChance/VesselPhysicsOptimizer"
+  },
+  "tags": [
+    "plugin",
+    "physics",
+    "utility"
+  ],
+  "install": [
+    {
+      "file": "GameData/VesselPhysicsOptimizer",
+      "install_to": "GameData"
+    }
+  ]
+}

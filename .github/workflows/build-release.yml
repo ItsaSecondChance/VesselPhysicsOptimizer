@@ -1,0 +1,58 @@
+name: Build VPO
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.x
+
+      - name: Compile against KSP 1.12.5
+        uses: KSPModdingLibs/KSPBuildTools/.github/actions/compile@1.1.1
+        with:
+          build-configuration: Release
+          solution-file-path: VesselPhysicsOptimizer.csproj
+
+      - name: Package GameData
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f GameData/VesselPhysicsOptimizer/Plugins/VesselPhysicsOptimizer.dll
+          mkdir -p dist
+          zip -r dist/VesselPhysicsOptimizer-0.1.0.zip GameData/VesselPhysicsOptimizer
+          unzip -t dist/VesselPhysicsOptimizer-0.1.0.zip
+          sha256sum dist/VesselPhysicsOptimizer-0.1.0.zip
+          stat -c 'ZIP size: %s bytes' dist/VesselPhysicsOptimizer-0.1.0.zip
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v0.1.0
+          name: Vessel Physics Optimizer 0.1.0
+          target_commitish: ${{ github.sha }}
+          prerelease: true
+          make_latest: false
+          overwrite_files: true
+          files: dist/VesselPhysicsOptimizer-0.1.0.zip
+          body: |
+            First test release for KSP 1.12.5.3190.
+            Purple marks connected multi-part groups.
+            Green marks previously grouped parts that are now singletons.
+            F9 toggles colors and F10 toggles diagnostics.
+            This build does not yet merge rigidbodies or optimize physics processing.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
