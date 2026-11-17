@@ -24,9 +24,6 @@
     }
   ],
   "download_size": 5282,
-  "download_hash": {
-    "sha256": "3b0cd92c780e2e0135167517e38f5b2fd561f3502cf898b758c279eb28a1559b"
-  },
   "download_content_type": "application/zip",
   "release_status": "testing"
 }
