@@ -1,0 +1,41 @@
+name: Build VPO
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.x
+
+      - name: Compile against KSP 1.12.5
+        uses: KSPModdingLibs/KSPBuildTools/.github/actions/compile@1.1.1
+        with:
+          ksp-zip-url: https://github.com/KSPModdingLibs/KSPLibs/raw/main/KSP-1.12.5.zip
+
+      - name: Verify plugin output
+        run: test -f GameData/VesselPhysicsOptimizer/Plugins/VesselPhysicsOptimizer.dll
+
+      - name: Package GameData
+        run: |
+          mkdir -p dist
+          cp -R GameData dist/GameData
+          cp README.md dist/README.md
+          cd dist
+          zip -r ../VesselPhysicsOptimizer-0.1.0.zip .
+
+      - name: Upload installable ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: VesselPhysicsOptimizer-KSP-1.12.5
+          path: VesselPhysicsOptimizer-0.1.0.zip
