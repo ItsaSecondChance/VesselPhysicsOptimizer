@@ -1,0 +1,22 @@
+{
+  "spec_version": "v1.34",
+  "identifier": "VesselPhysicsOptimizer",
+  "name": "Vessel Physics Optimizer",
+  "abstract": "Diagnostic connected-part grouping visualization prototype for KSP 1.12.5.",
+  "author": "Second Chance",
+  "license": "MIT",
+  "version": "0.1.0",
+  "ksp_version_min": "1.12.5",
+  "ksp_version_max": "1.12.5",
+  "download": "https://github.com/ItsaSecondChance/VesselPhysicsOptimizer/releases/download/v0.1.0/VesselPhysicsOptimizer-0.1.0.zip",
+  "download_size": 6364,
+  "download_hash": {
+    "sha256": "363d6b1b850d322c2e8f85e7725ebeba80e0ec9c2ad378aaf12d492b7229c1ba"
+  },
+  "install": [
+    {
+      "find": "GameData",
+      "install_to": "GameData"
+    }
+  ]
+}
