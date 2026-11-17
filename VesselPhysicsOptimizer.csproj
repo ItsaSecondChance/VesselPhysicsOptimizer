@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>VesselPhysicsOptimizer</AssemblyName>
+    <RootNamespace>VesselPhysicsOptimizer</RootNamespace>
+    <Version>0.1.0</Version>
+    <FileVersion>0.1.0.0</FileVersion>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <KSPBT_ModRoot>$(MSBuildThisFileDirectory)GameData/VesselPhysicsOptimizer</KSPBT_ModRoot>
+    <KSPBT_ModPluginFolder>Plugins</KSPBT_ModPluginFolder>
+    <KSPBT_ReferenceUnityAssemblies>true</KSPBT_ReferenceUnityAssemblies>
+    <KSPBT_ReferenceGameAssemblies>true</KSPBT_ReferenceGameAssemblies>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="KSPBuildTools" Version="1.1.1" />
+  </ItemGroup>
+</Project>
