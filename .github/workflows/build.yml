@@ -6,6 +6,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -39,3 +42,14 @@ jobs:
         with:
           name: VesselPhysicsOptimizer-KSP-1.12.5
           path: VesselPhysicsOptimizer-0.1.0.zip
+
+      - name: Publish CKAN-downloadable release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v0.1.0
+          name: Vessel Physics Optimizer 0.1.0
+          target_commitish: ${{ github.sha }}
+          files: VesselPhysicsOptimizer-0.1.0.zip
+          fail_on_unmatched_files: true
+          make_latest: true
