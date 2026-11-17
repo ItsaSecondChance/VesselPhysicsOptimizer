@@ -209,7 +209,7 @@ namespace VesselPhysicsOptimizer
             {
                 part.SetHighlightType(Part.HighlightType.AlwaysOn);
                 part.SetHighlightColor(color);
-                part.SetHighlight(true);
+                part.SetHighlight(true, false);
                 highlightedParts[id] = part;
                 appliedStates[id] = state;
             }
@@ -227,7 +227,7 @@ namespace VesselPhysicsOptimizer
                 try
                 {
                     part.SetHighlightDefault();
-                    part.SetHighlight(false);
+                    part.SetHighlight(false, false);
                 }
                 catch (Exception ex)
                 {
