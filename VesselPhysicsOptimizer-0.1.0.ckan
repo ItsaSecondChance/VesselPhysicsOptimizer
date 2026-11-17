@@ -23,7 +23,10 @@
       "install_to": "GameData"
     }
   ],
-  "download_size": 5282,
+  "download_size": 5289,
   "download_content_type": "application/zip",
-  "release_status": "testing"
+  "release_status": "stable",
+  "download_hash": {
+    "sha256": "38ace3b42c7856f8b965391ed5ef3e4290d48d7e72be75e5013058dcfe5347d0"
+  }
 }
