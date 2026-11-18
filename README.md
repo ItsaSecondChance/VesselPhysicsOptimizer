@@ -37,4 +37,4 @@ Do not use "Import downloaded mods" for the metadata repository.
 
 ## Build
 
-GitHub Actions compiles against KSP 1.12.5 reference assemblies, packages only `GameData/VesselPhysicsOptimizer`, and uploads a workflow artifact. A GitHub release is published only from the main branch after successful packaging. CKAN metadata must be updated with the final release ZIP size and SHA-256 before the release is indexed.
+GitHub Actions compiles against KSP 1.12.5 reference assemblies, packages only `GameData/VesselPhysicsOptimizer`, and uploads a workflow artifact. A GitHub release is published only from the main branch after successful packaging. After publishing the main-branch release, the workflow updates the CKAN metadata from the actual ZIP, including its exact size and SHA-256. The 0.2.0 metadata is marked as testing until the physics behavior has been validated in-game.

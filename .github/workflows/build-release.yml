@@ -67,3 +67,39 @@ jobs:
             This build has not yet been validated in a live game session.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Refresh CKAN metadata from the released ZIP
+        if: github.ref == 'refs/heads/main'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          old_path = Path("VesselPhysicsOptimizer-0.1.0.ckan")
+          new_path = Path("VesselPhysicsOptimizer-0.2.0.ckan")
+          archive = Path("dist/VesselPhysicsOptimizer-0.2.0.zip")
+
+          metadata = json.loads(old_path.read_text(encoding="utf-8"))
+          metadata["abstract"] = "Experimental opt-in native physics aggregation for KSP 1.12.5."
+          metadata["version"] = "0.2.0"
+          metadata["download"] = "https://github.com/ItsaSecondChance/VesselPhysicsOptimizer/releases/download/v0.2.0/VesselPhysicsOptimizer-0.2.0.zip"
+          metadata["release_status"] = "testing"
+          metadata["download_size"] = archive.stat().st_size
+          metadata["download_content_type"] = "application/zip"
+          metadata["download_hash"] = {
+              "sha256": hashlib.sha256(archive.read_bytes()).hexdigest().upper()
+          }
+
+          new_path.write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
+          old_path.unlink()
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- VesselPhysicsOptimizer-0.1.0.ckan VesselPhysicsOptimizer-0.2.0.ckan
+          if ! git diff --cached --quiet; then
+            git commit -m "Update CKAN metadata for VPO 0.2.0"
+            git push origin HEAD:main
+          fi
