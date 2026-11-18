@@ -2,11 +2,11 @@
   "spec_version": 1,
   "identifier": "VesselPhysicsOptimizer",
   "name": "Vessel Physics Optimizer",
-  "abstract": "Experimental connected-part optimizer; initial release provides connection-state visualization only.",
+  "abstract": "Experimental opt-in native physics aggregation for KSP 1.12.5.",
   "author": "ItsaSecondChance",
   "license": "MIT",
-  "version": "0.1.0",
-  "download": "https://github.com/ItsaSecondChance/VesselPhysicsOptimizer/releases/download/v0.1.0/VesselPhysicsOptimizer-0.1.0.zip",
+  "version": "0.2.0",
+  "download": "https://github.com/ItsaSecondChance/VesselPhysicsOptimizer/releases/download/v0.2.0/VesselPhysicsOptimizer-0.2.0.zip",
   "ksp_version_min": "1.12.5",
   "ksp_version_max": "1.12.5",
   "resources": {
@@ -23,10 +23,10 @@
       "install_to": "GameData"
     }
   ],
-  "download_size": 5289,
+  "download_size": 9650,
   "download_content_type": "application/zip",
-  "release_status": "stable",
+  "release_status": "testing",
   "download_hash": {
-    "sha256": "8D652C9D4A85C43C62021BE90246A9B331F959DD7A269DFA82FA15D744494BBF"
+    "sha256": "885F1228C3C5291394343D180B910FA7FB92989EB567BEA182F390E4DB373D1D"
   }
 }
