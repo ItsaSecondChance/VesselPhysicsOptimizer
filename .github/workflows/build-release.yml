@@ -3,9 +3,9 @@ name: Build VPO
 on:
   push:
     branches:
-      - main
+      - '**'
     paths-ignore:
-      - 'VesselPhysicsOptimizer-0.1.0.ckan'
+      - '*.ckan'
       - 'README.md'
       - 'LICENSE'
   workflow_dispatch:
@@ -37,26 +37,33 @@ jobs:
           set -euo pipefail
           test -f GameData/VesselPhysicsOptimizer/Plugins/VesselPhysicsOptimizer.dll
           mkdir -p dist
-          zip -r dist/VesselPhysicsOptimizer-0.1.0.zip GameData/VesselPhysicsOptimizer
-          unzip -t dist/VesselPhysicsOptimizer-0.1.0.zip
-          sha256sum dist/VesselPhysicsOptimizer-0.1.0.zip
-          stat -c 'ZIP size: %s bytes' dist/VesselPhysicsOptimizer-0.1.0.zip
+          zip -r dist/VesselPhysicsOptimizer-0.2.0.zip GameData/VesselPhysicsOptimizer
+          unzip -t dist/VesselPhysicsOptimizer-0.2.0.zip
+          sha256sum dist/VesselPhysicsOptimizer-0.2.0.zip
+          stat -c 'ZIP size: %s bytes' dist/VesselPhysicsOptimizer-0.2.0.zip
+
+      - name: Upload test package
+        uses: actions/upload-artifact@v4
+        with:
+          name: VesselPhysicsOptimizer-0.2.0-test
+          path: dist/VesselPhysicsOptimizer-0.2.0.zip
+          if-no-files-found: error
 
       - name: Publish release
+        if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v0.1.0
-          name: Vessel Physics Optimizer 0.1.0
+          tag_name: v0.2.0
+          name: Vessel Physics Optimizer 0.2.0
           target_commitish: ${{ github.sha }}
           prerelease: true
           make_latest: false
           overwrite_files: true
-          files: dist/VesselPhysicsOptimizer-0.1.0.zip
+          files: dist/VesselPhysicsOptimizer-0.2.0.zip
           body: |
-            First visualization milestone for KSP 1.12.5.3190.
-            Purple marks connected multi-part groups.
-            Green marks previously grouped parts that are now singletons.
-            F9 toggles colors and F10 toggles diagnostics.
-            This build does not yet merge rigidbodies or optimize physics performance.
+            Experimental native physics aggregation for KSP 1.12.5.3190.
+            Aggregation is disabled by default; press F8 to enable it in a backed-up test save.
+            F9 toggles debug colors and F10 toggles diagnostics.
+            This build has not yet been validated in a live game session.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
